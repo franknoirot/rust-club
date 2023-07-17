@@ -8,7 +8,7 @@ fn main() {
     println!("Answer 2 is {}", divisible_checksum);
 }
 
-fn load_parse_tsv(path: &str) -> Vec<Vec<i32>> {
+fn load_parse_txt_as_tsv(path: &str) -> Vec<Vec<i32>> {
     // Load in the input TSV file
     let raw_input = std::fs::read_to_string(path)
         .unwrap();
@@ -26,7 +26,7 @@ fn load_parse_tsv(path: &str) -> Vec<Vec<i32>> {
 
 // Function for the first part of the problem
 fn get_checksum() -> i32 {
-    let parsed_input = load_parse_tsv("input.txt");
+    let parsed_input = load_parse_txt_as_tsv("input.txt");
 
     // Get the difference between the min and max values in each line,
     // then get the sum of those differences
@@ -39,7 +39,7 @@ fn get_checksum() -> i32 {
 
 // Function for the second part of the problem
 fn get_divisible_checksum() -> i32 {
-    let parsed_input = load_parse_tsv("input.txt");
+    let parsed_input = load_parse_txt_as_tsv("input.txt");
 
     // Sort the items in each row, smallest to largest
     // Then see if each item in the row divides evenly with any others

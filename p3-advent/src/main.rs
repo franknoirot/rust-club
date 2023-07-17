@@ -11,7 +11,8 @@ fn main() {
         .map(|line| line.collect())
         .collect();
 
-    // Get the difference between the min and max values in each line
+    // Get the difference between the min and max values in each line,
+    // then get the sum of those differences
     let differences = parsed_input.iter()
         .map(|line| line.iter().max().unwrap() - line.iter().min().unwrap());
 

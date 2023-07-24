@@ -3,9 +3,7 @@ use std::{num::ParseIntError, env::args};
 fn main() -> Result<(), ParseIntError> {
     let input = args().collect::<Vec<String>>();
 
-    let parsed_input : i32 = input[1].parse()?;
-
-    assert!(parsed_input > 0);
+    let parsed_input : i32 = input[1].parse().expect("Could not parse as integer");
 
     let position = get_spiral_position(parsed_input);
     let dist = manhattan_dist(position, (0, 0));
@@ -18,6 +16,10 @@ fn main() -> Result<(), ParseIntError> {
 
 type Point = (i32, i32);
 
+fn is_even(n: i32) -> bool {
+    n % 2 == 0
+}
+
 /// Given a number
 /// calculates the point (x, y) on a right-handed ccw spiral 
 /// relative to the origin 1 at (0,0)
@@ -29,16 +31,16 @@ fn get_spiral_position(input: i32) -> Point {
     let gt_half_min = diff.min(square_diff / 2);
     let lt_half_max = (diff - square_diff / 2).max(0);
 
-    match lsqr % 2 {
-        0 => (
+    if is_even(lsqr) {
+        (
             (1 - lsqr / 2) + gt_half_min,
             lsqr / 2 - lt_half_max
-        ),
-        1 => (
+        )
+    } else {
+        (
             (lsqr - 1) / 2 - gt_half_min,
             (lsqr - 1) / -2 + lt_half_max
-        ),
-        _ => panic!("What number could this be??")
+        )
     }
 }
 

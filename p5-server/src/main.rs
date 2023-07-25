@@ -31,6 +31,7 @@ struct Components {
 }
 
 #[derive(serde::Deserialize, Debug)]
+#[serde(rename_all = "PascalCase")]  
 struct Responses {
     error: serde_json::Value,
 }

@@ -1,0 +1,16 @@
+{
+    "urls": [
+        {
+            "name": "Adam's website",
+            "url": "https://adamchalmers.com"
+        },
+        { 
+            "name": "Frank's website",
+            "url": "https://franknoirot.co"
+        },
+        { 
+            "name": "Kurt's website",
+            "url": "https://kurthutten.com/not-here"
+        }
+    ]
+}

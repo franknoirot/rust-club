@@ -1,11 +1,10 @@
 use futures::future::join_all;
-use itertools::Itertools;
 use serde::Deserialize;
 use std::time::Duration;
 
 #[derive(Deserialize, Debug)]
 struct UrlData {
-    urls: Box<[SiteData]>,
+    urls: Vec<SiteData>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -25,14 +24,13 @@ async fn main() -> Result<(), std::io::Error> {
 
     // Create an iterator of reqwest futures
     // based on the URLs in the dataset.
-    let response_futures = data.urls.iter().map(|site| client.get(&site.url).send());
+    let response_futures = data.urls.iter().map(|site| async { client.get(&site.url).send().await });
 
     // Join up the futures and await them,
     // then print their output.
     join_all(response_futures)
         .await
         .into_iter()
-        .filter_map_ok(|r| Some(r.status()))
         .enumerate()
         .for_each(|(i, r)| {
             println!(
@@ -41,7 +39,7 @@ async fn main() -> Result<(), std::io::Error> {
                 data.urls[i].url,
                 // Account for timeout error
                 match r {
-                    Ok(r) => r.to_string(),
+                    Ok(r) => r.status().to_string(),
                     Err(e) => format!("Error: {}", e),
                 }
             )

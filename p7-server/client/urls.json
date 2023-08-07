@@ -9,12 +9,6 @@
             "name": "Frank's website",
             "url": "https://franknoirot.co",
             "description": "Frank's website"
-        },
-        { 
-            "name": "Kurt's website",
-            "url": "https://kurt.sucks",
-            "description": "Kurt's website",
-            "meta": "kurt"
         }
     ]
 }
